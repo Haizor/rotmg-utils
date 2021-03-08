@@ -1,0 +1,8 @@
+{
+  "name": "rotmg-utils",
+  "version": "1.0.0",
+  "description": "Loads ROTMG equipment XML into a more usable JSON format.",
+  "main": "src/index.js",
+  "author": "Haizor",
+  "license": "ISC"
+}
