@@ -16,6 +16,7 @@ export class AssetManager {
 		this.registerSourceLoader("file-to-text", new File2TextSourceLoader());
 	}
 
+	//Sets alternative fetch method when it isn't global defined
 	setFetcher(fetcher: Fetcher) {
 		this.registerSourceLoader("url-to-text", new Url2TextSourceLoader(fetcher));
 	}

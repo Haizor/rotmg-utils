@@ -95,6 +95,7 @@ var AssetManager = /** @class */ (function () {
         this.registerSourceLoader("url-to-text", new Url2TextSourceLoader_1.Url2TextSourceLoader());
         this.registerSourceLoader("file-to-text", new File2TextSourceLoader_1.File2TextSourceLoader());
     }
+    //Sets alternative fetch method when it isn't global defined
     AssetManager.prototype.setFetcher = function (fetcher) {
         this.registerSourceLoader("url-to-text", new Url2TextSourceLoader_1.Url2TextSourceLoader(fetcher));
     };

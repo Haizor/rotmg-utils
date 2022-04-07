@@ -1,6 +1,6 @@
 import { SourceLoader } from "./SourceLoader";
 
-export type Fetcher = (src: string) => Promise<string>;
+export type Fetcher = (src: string) => Promise<any>;
 
 export class Url2TextSourceLoader implements SourceLoader<string, string> {
 	fetcher?: Fetcher;
@@ -10,9 +10,7 @@ export class Url2TextSourceLoader implements SourceLoader<string, string> {
 	}
 	
 	async convert(src: string): Promise<string> {
-		if (this.fetcher) {
-			return this.fetcher(src);
-		}
-		return (await fetch(src)).text();
+		const fetcher = this.fetcher ?? fetch;
+		return (await fetcher(src)).text();
 	}
 }

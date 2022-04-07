@@ -42,15 +42,15 @@ var Url2TextSourceLoader = /** @class */ (function () {
         this.fetcher = fetcher;
     }
     Url2TextSourceLoader.prototype.convert = function (src) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var fetcher;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        if (this.fetcher) {
-                            return [2 /*return*/, this.fetcher(src)];
-                        }
-                        return [4 /*yield*/, fetch(src)];
-                    case 1: return [2 /*return*/, (_a.sent()).text()];
+                        fetcher = (_a = this.fetcher) !== null && _a !== void 0 ? _a : fetch;
+                        return [4 /*yield*/, fetcher(src)];
+                    case 1: return [2 /*return*/, (_b.sent()).text()];
                 }
             });
         });
