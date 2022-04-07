@@ -1,0 +1,24 @@
+{
+	"include": ["./src/index.ts"],
+	"compilerOptions": {
+		"module": "CommonJS",
+		"target": "es5",
+		"lib": [
+		  "dom",
+		  "dom.iterable",
+		  "esnext",
+		
+		],
+		"esModuleInterop": true,
+		"declaration": true,
+		"outDir": "./dist",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"downlevelIteration": true,
+		"baseUrl": "./src",
+		"rootDir": "./src"
+	},
+	"exclude": [
+		"node_modules"
+	]
+}
