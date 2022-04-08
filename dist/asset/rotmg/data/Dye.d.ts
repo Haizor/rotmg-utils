@@ -1,6 +1,6 @@
 import { XMLObject } from "./XMLObject";
 import { DataController } from "../../../asset/normal/Serializable";
-import { Texture } from "./Texture";
+import { BasicTexture, Texture } from "./Texture";
 export declare type DyeAnimation = {
     type: DyeAnimationType;
     speed: number;
@@ -25,4 +25,6 @@ export declare class Dye extends XMLObject {
     isAccessory(): boolean;
     isColor(): boolean;
     isTextile(): boolean;
+    getTextileTexture(): BasicTexture | undefined;
+    getRGB(): [number, number, number] | undefined;
 }

@@ -1,6 +1,6 @@
 import { XMLObject } from "./XMLObject";
 import { Data, DataController, XMLHex } from "../../../asset/normal/Serializable";
-import { Texture, TextureData } from "./Texture";
+import { BasicTexture, Texture, TextureData } from "./Texture";
 
 export type DyeAnimation = {
 	type: DyeAnimationType,
@@ -83,5 +83,19 @@ export class Dye extends XMLObject {
 		const dyeTex = this.clothing ?? this.accessory;
 		if (dyeTex === undefined) return false;
 		return parseInt(`0x${dyeTex[2]}`) > 1
+	}
+
+	getTextileTexture(): BasicTexture | undefined {
+		if (!this.isTextile) return;
+		return new BasicTexture(this.getSheetName(), this.getIndex(), false);
+	}
+
+	getRGB(): [number, number, number] | undefined {
+		if (!this.isColor()) return;
+		const color = this.getColor();
+		const r = parseInt(color.slice(1, 3), 16);
+		const g = parseInt(color.slice(3, 5), 16);
+		const b = parseInt(color.slice(5, 7), 16);
+		return [r, g, b];
 	}
 }

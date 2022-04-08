@@ -104,6 +104,20 @@ var Dye = /** @class */ (function (_super) {
             return false;
         return parseInt("0x".concat(dyeTex[2])) > 1;
     };
+    Dye.prototype.getTextileTexture = function () {
+        if (!this.isTextile)
+            return;
+        return new Texture_1.BasicTexture(this.getSheetName(), this.getIndex(), false);
+    };
+    Dye.prototype.getRGB = function () {
+        if (!this.isColor())
+            return;
+        var color = this.getColor();
+        var r = parseInt(color.slice(1, 3), 16);
+        var g = parseInt(color.slice(3, 5), 16);
+        var b = parseInt(color.slice(5, 7), 16);
+        return [r, g, b];
+    };
     __decorate([
         (0, Serializable_1.Data)("Mask", Texture_1.TextureData),
         __metadata("design:type", Object)
