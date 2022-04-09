@@ -33,6 +33,7 @@ export declare type AnimatedSpriteData = {
     spriteSheetName: string;
     direction: number;
     action: number;
+    set: number;
     spriteData: SpriteData;
 };
 export declare enum Direction {
