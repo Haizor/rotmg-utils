@@ -1,6 +1,12 @@
 import { AssetContainer, Metadata } from "asset/normal/AssetContainer";
 import { BasicTexture, Texture } from "../data/Texture";
 
+export enum Atlases {
+	"https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png" = 1,
+	"https://www.haizor.net/rotmg/assets/production/atlases/characters.png" = 2,
+	"https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png" = 4
+}
+
 export type SpritePosition = {
 	x: number;
 	y: number;
@@ -71,15 +77,8 @@ export class Sprite {
 		return this._animatedData;
 	}
 
-	getAtlasSource(): string | undefined{
-		switch(this._data.aId) {
-			case 1:
-				return "https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png"
-			case 2:
-				return "https://www.haizor.net/rotmg/assets/production/atlases/characters.png"
-			case 4: 
-				return "https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png"
-		}
+	getAtlasSource(): string | undefined {
+		return Atlases[this._data.aId];
 	}
 
 	asTexture() {

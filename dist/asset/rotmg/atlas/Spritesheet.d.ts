@@ -1,5 +1,10 @@
 import { AssetContainer, Metadata } from "asset/normal/AssetContainer";
 import { BasicTexture, Texture } from "../data/Texture";
+export declare enum Atlases {
+    "https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png" = 1,
+    "https://www.haizor.net/rotmg/assets/production/atlases/characters.png" = 2,
+    "https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png" = 4
+}
 export declare type SpritePosition = {
     x: number;
     y: number;

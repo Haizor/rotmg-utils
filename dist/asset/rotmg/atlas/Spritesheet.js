@@ -36,8 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Spritesheet = exports.Sprite = exports.Action = exports.Direction = void 0;
+exports.Spritesheet = exports.Sprite = exports.Action = exports.Direction = exports.Atlases = void 0;
 var Texture_1 = require("../data/Texture");
+var Atlases;
+(function (Atlases) {
+    Atlases[Atlases["https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png"] = 1] = "https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png";
+    Atlases[Atlases["https://www.haizor.net/rotmg/assets/production/atlases/characters.png"] = 2] = "https://www.haizor.net/rotmg/assets/production/atlases/characters.png";
+    Atlases[Atlases["https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png"] = 4] = "https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png";
+})(Atlases = exports.Atlases || (exports.Atlases = {}));
 var Direction;
 (function (Direction) {
     Direction[Direction["Side"] = 0] = "Side";
@@ -63,14 +69,7 @@ var Sprite = /** @class */ (function () {
         return this._animatedData;
     };
     Sprite.prototype.getAtlasSource = function () {
-        switch (this._data.aId) {
-            case 1:
-                return "https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png";
-            case 2:
-                return "https://www.haizor.net/rotmg/assets/production/atlases/characters.png";
-            case 4:
-                return "https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png";
-        }
+        return Atlases[this._data.aId];
     };
     Sprite.prototype.asTexture = function () {
         return new Texture_1.BasicTexture(this._data.spriteSheetName, this._data.index, false);
