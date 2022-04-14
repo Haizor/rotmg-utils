@@ -52,9 +52,8 @@ var Action;
     Action[Action["Attack"] = 2] = "Attack";
 })(Action = exports.Action || (exports.Action = {}));
 var Sprite = /** @class */ (function () {
-    function Sprite(data, texture, animatedData) {
+    function Sprite(data, animatedData) {
         this._data = data;
-        this._texture = texture;
         this._animatedData = animatedData;
     }
     Sprite.prototype.getData = function () {
@@ -73,12 +72,6 @@ var Sprite = /** @class */ (function () {
                 return "https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png";
         }
     };
-    Sprite.prototype.getGLTexture = function () {
-        return this._texture;
-    };
-    Sprite.prototype.setGLTexture = function (texture) {
-        this._texture = texture;
-    };
     Sprite.prototype.asTexture = function () {
         return new Texture_1.BasicTexture(this._data.spriteSheetName, this._data.index, false);
     };
@@ -89,7 +82,6 @@ var Spritesheet = /** @class */ (function () {
     function Spritesheet(gl) {
         this._sprites = [];
         this._animatedSprites = [];
-        this._textures = new Map();
         this.gl = gl;
     }
     Spritesheet.prototype.load = function (src) {
@@ -109,7 +101,6 @@ var Spritesheet = /** @class */ (function () {
         });
     };
     Spritesheet.prototype.get = function (options) {
-        var _this = this;
         var _a, _b, _c;
         var all = options.all, multiple = options.multiple;
         var animated;
@@ -133,8 +124,7 @@ var Spritesheet = /** @class */ (function () {
                 if (data.length === 0)
                     return [];
                 return data.map(function (data) {
-                    var sprite = new Sprite(data.spriteData, undefined, data);
-                    sprite.setGLTexture(_this.getWebGLTextureFromSprite(sprite));
+                    var sprite = new Sprite(data.spriteData, data);
                     return sprite;
                 });
             }
@@ -143,8 +133,7 @@ var Spritesheet = /** @class */ (function () {
                 if (data.length === 0)
                     return [];
                 return data.map(function (data) {
-                    var sprite = new Sprite(data.spriteData, undefined, data);
-                    sprite.setGLTexture(_this.getWebGLTextureFromSprite(sprite));
+                    var sprite = new Sprite(data.spriteData, data);
                     return sprite;
                 });
             }
@@ -152,8 +141,7 @@ var Spritesheet = /** @class */ (function () {
                 var data = this._animatedSprites.find(function (data) { return data.index === index && data.spriteSheetName === spriteSheetName && data.action === action_1 && data.direction === direction_1; });
                 if (data === undefined)
                     return;
-                var sprite = new Sprite(data.spriteData, undefined, data);
-                sprite.setGLTexture(this.getWebGLTextureFromSprite(sprite));
+                var sprite = new Sprite(data.spriteData, data);
                 return sprite;
             }
         }
@@ -163,53 +151,8 @@ var Spritesheet = /** @class */ (function () {
             if (data === undefined)
                 return;
             var sprite = new Sprite(data);
-            sprite.setGLTexture(this.getWebGLTextureFromSprite(sprite));
             return sprite;
         }
-    };
-    Spritesheet.prototype.getWebGLTextureFromSprite = function (sprite) {
-        var _this = this;
-        var _a;
-        var data = sprite.getData();
-        if (this._textures.has(data.aId)) {
-            var texture_1 = this._textures.get(data.aId);
-            if ((_a = this.gl) === null || _a === void 0 ? void 0 : _a.isTexture(texture_1 === null || texture_1 === void 0 ? void 0 : texture_1.texture)) {
-                return this._textures.get(data.aId);
-            }
-        }
-        if (this.gl === undefined)
-            return undefined;
-        var gl = this.gl;
-        var atlasURL = sprite.getAtlasSource();
-        if (atlasURL === undefined)
-            return;
-        var texture = gl.createTexture();
-        if (texture === null)
-            return;
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
-        var img = new Image();
-        img.crossOrigin = "";
-        img.src = atlasURL;
-        img.onload = function () {
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-            var info = _this._textures.get(data.aId);
-            info.size = { width: img.naturalWidth, height: img.naturalHeight };
-        };
-        var textureInfo = {
-            texture: texture,
-            size: { width: 1, height: 1 }
-        };
-        this._textures.set(data.aId, textureInfo);
-        return textureInfo;
-    };
-    Spritesheet.prototype.purgeTextures = function () {
-        this._textures.clear();
     };
     Spritesheet.prototype.getAll = function () {
         throw new Error("Method not implemented.");

@@ -5,10 +5,7 @@ export * from "./asset/normal/AssetLoader";
 export * from "./asset/normal/MapAssetContainer";
 export * from "./asset/normal/Serializable";
 export * from "./asset/normal/Utils"
-export * from "./asset/normal/loaders/ProgramAssetLoader";
 export * from "./asset/normal/loaders/RawAssetLoader";
-export * from "./asset/normal/loaders/ShaderAssetLoader";
-export * from "./asset/normal/loaders/TextureAssetLoader";
 export * from "./asset/normal/loaders/source/File2TextSourceLoader";
 export * from "./asset/normal/loaders/source/SourceLoader";
 export * from "./asset/normal/loaders/source/Url2TextSourceLoader";

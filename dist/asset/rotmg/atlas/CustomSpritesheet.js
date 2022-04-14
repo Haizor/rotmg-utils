@@ -103,14 +103,6 @@ var CustomSpritesheet = /** @class */ (function () {
             });
         });
     };
-    CustomSpritesheet.prototype.initGL = function (gl) {
-        this.gl = gl;
-        var texture = gl.createTexture();
-        if (texture === null)
-            return;
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        this.texture = texture;
-    };
     CustomSpritesheet.prototype.set = function (index, image) {
         return __awaiter(this, void 0, void 0, function () {
             var ctx, x, y;
@@ -131,7 +123,6 @@ var CustomSpritesheet = /** @class */ (function () {
                                         return [4 /*yield*/, this.updateBlob()];
                                     case 1:
                                         _b.sent();
-                                        this.updateTexture();
                                         data = {
                                             padding: 0,
                                             aId: -1,
@@ -202,33 +193,6 @@ var CustomSpritesheet = /** @class */ (function () {
                 return [2 /*return*/];
             });
         });
-    };
-    CustomSpritesheet.prototype.updateTexture = function () {
-        var e_2, _a;
-        var gl = this.gl;
-        if (gl === undefined || this.texture === undefined)
-            return;
-        gl.bindTexture(gl.TEXTURE_2D, this.texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.ctx.canvas);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-        try {
-            for (var _b = __values(this.sprites), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var sprite = _c.value;
-                sprite.setGLTexture({
-                    texture: this.texture,
-                    size: { width: this.width, height: this.height }
-                });
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
     };
     CustomSpritesheet.prototype.get = function (id) {
         var index;

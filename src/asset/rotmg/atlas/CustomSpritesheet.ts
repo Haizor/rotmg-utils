@@ -27,9 +27,6 @@ export class CustomSpritesheet implements AssetContainer<Sprite> {
 	height: number = 512;
 	blob?: string;
 
-	texture?: WebGLTexture;
-	gl?: WebGLRenderingContext;
-
 	constructor(name?: string) {
 		this.name = name;
 		const canvas = document.createElement("canvas");
@@ -48,14 +45,6 @@ export class CustomSpritesheet implements AssetContainer<Sprite> {
 		return this.set(this.sprites.length, image);
 	}
 
-	initGL(gl: WebGLRenderingContext) {
-		this.gl = gl;
-		const texture = gl.createTexture();
-		if (texture === null) return;
-		gl.bindTexture(gl.TEXTURE_2D, texture);
-		this.texture = texture;
-	}
-
 	async set(index: number, image: HTMLImageElement): Promise<Sprite | undefined> {
 		const { ctx } = this;
 		const x = (index % (this.width / 8)) * 8
@@ -65,7 +54,6 @@ export class CustomSpritesheet implements AssetContainer<Sprite> {
 				ctx.clearRect(x, y, 8, 8);
 				ctx.drawImage(image, x, y, 8, 8);
 				await this.updateBlob();	
-				this.updateTexture();	
 		
 				const data = {
 					padding: 0,
@@ -118,22 +106,6 @@ export class CustomSpritesheet implements AssetContainer<Sprite> {
 				sprite.blob = url;
 			}
 		})
-	}
-
-	updateTexture() {
-		const gl = this.gl; 
-		if (gl === undefined || this.texture === undefined) return;
-		gl.bindTexture(gl.TEXTURE_2D, this.texture);
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.ctx.canvas);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-		for (const sprite of this.sprites) {
-			sprite.setGLTexture({
-				texture: this.texture,
-				size: {width: this.width, height: this.height}
-			});
-		}
 	}
 
 	get(id: SpriteGetOptions): Sprite | undefined {

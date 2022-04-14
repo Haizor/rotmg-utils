@@ -1,6 +1,6 @@
 {
   "name": "rotmg-utils",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Utilities for parsing and using data from Realm of the Mad God.",
   "main": "dist/index",
   "typings": "dist/index",

@@ -1,5 +1,4 @@
 import { AssetContainer, Metadata } from "asset/normal/AssetContainer";
-import { GLTextureInfo } from "asset/normal/loaders/TextureAssetLoader";
 import { BasicTexture, Texture } from "../data/Texture";
 export declare type SpritePosition = {
     x: number;
@@ -50,13 +49,10 @@ export declare enum Action {
 export declare class Sprite {
     private _data;
     private _animatedData?;
-    private _texture?;
-    constructor(data: SpriteData, texture?: GLTextureInfo, animatedData?: AnimatedSpriteData);
+    constructor(data: SpriteData, animatedData?: AnimatedSpriteData);
     getData(): SpriteData;
     getAnimatedData(): AnimatedSpriteData;
     getAtlasSource(): string | undefined;
-    getGLTexture(): GLTextureInfo | undefined;
-    setGLTexture(texture?: GLTextureInfo): void;
     asTexture(): BasicTexture;
 }
 export declare type SpriteGetOptions = {
@@ -72,14 +68,11 @@ export declare type SpriteGetOptions = {
 export declare class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
     private _sprites;
     private _animatedSprites;
-    private _textures;
     gl?: WebGLRenderingContext;
     metadata?: Metadata;
     constructor(gl?: WebGLRenderingContext);
     load(src: string): Promise<void>;
     get(options: SpriteGetOptions): (Sprite | Sprite[]) | undefined;
-    getWebGLTextureFromSprite(sprite: Sprite): GLTextureInfo | undefined;
-    purgeTextures(): void;
     getAll(): Sprite[];
     getMetadata(): Metadata | undefined;
     setMetadata(metadata: Metadata): void;

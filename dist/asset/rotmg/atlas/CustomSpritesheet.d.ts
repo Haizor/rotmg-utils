@@ -14,15 +14,11 @@ export declare class CustomSpritesheet implements AssetContainer<Sprite> {
     width: number;
     height: number;
     blob?: string;
-    texture?: WebGLTexture;
-    gl?: WebGLRenderingContext;
     constructor(name?: string);
     add(image: HTMLImageElement): Promise<Sprite>;
-    initGL(gl: WebGLRenderingContext): void;
     set(index: number, image: HTMLImageElement): Promise<Sprite | undefined>;
     delete(index: number): void;
     updateBlob(): Promise<void>;
-    updateTexture(): void;
     get(id: SpriteGetOptions): Sprite | undefined;
     getAll(): Sprite[];
     getMetadata(): Metadata | undefined;

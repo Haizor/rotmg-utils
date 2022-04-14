@@ -1,5 +1,4 @@
 import { AssetContainer, Metadata } from "asset/normal/AssetContainer";
-import { GLTextureInfo } from "asset/normal/loaders/TextureAssetLoader";
 import { BasicTexture, Texture } from "../data/Texture";
 
 export type SpritePosition = {
@@ -58,11 +57,9 @@ export enum Action {
 export class Sprite {
 	private _data: SpriteData;
 	private _animatedData?: AnimatedSpriteData;
-	private _texture?: GLTextureInfo
 
-	constructor(data: SpriteData, texture?: GLTextureInfo, animatedData?: AnimatedSpriteData) {
+	constructor(data: SpriteData, animatedData?: AnimatedSpriteData) {
 		this._data = data;
-		this._texture = texture;
 		this._animatedData = animatedData;
 	}
 
@@ -83,14 +80,6 @@ export class Sprite {
 			case 4: 
 				return "https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png"
 		}
-	}
-
-	getGLTexture(): GLTextureInfo | undefined {
-		return this._texture;
-	}
-
-	setGLTexture(texture?: GLTextureInfo) {
-		this._texture = texture;
 	}
 
 	asTexture() {
@@ -114,7 +103,6 @@ export type SpriteGetOptions = {
 export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 	private _sprites: SpriteAtlasData[] = [];
 	private _animatedSprites: AnimatedSpriteData[] = [];
-	private _textures: Map<number, GLTextureInfo> = new Map();
 
 	gl?: WebGLRenderingContext;
 	metadata?: Metadata;
@@ -158,8 +146,7 @@ export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 				if (data.length === 0) return [];
 
 				return data.map((data) => {
-					const sprite = new Sprite(data.spriteData, undefined, data);
-					sprite.setGLTexture(this.getWebGLTextureFromSprite(sprite));
+					const sprite = new Sprite(data.spriteData, data);
 					return sprite;
 				})
 			}
@@ -169,17 +156,14 @@ export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 				if (data.length === 0) return [];
 
 				return data.map((data) => {
-					const sprite = new Sprite(data.spriteData, undefined, data);
-					sprite.setGLTexture(this.getWebGLTextureFromSprite(sprite));
+					const sprite = new Sprite(data.spriteData, data);
 					return sprite;
 				})
 			} else {
 				const data = this._animatedSprites.find((data) => data.index === index && data.spriteSheetName === spriteSheetName && data.action === action && data.direction === direction);
 				if (data === undefined) return;
 	
-				const sprite = new Sprite(data.spriteData, undefined, data);
-				sprite.setGLTexture(this.getWebGLTextureFromSprite(sprite));
-	
+				const sprite = new Sprite(data.spriteData, data);
 				return sprite;
 			}
 		} else {
@@ -188,58 +172,8 @@ export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 			if (data === undefined) return;
 
 			const sprite = new Sprite(data);
-			sprite.setGLTexture(this.getWebGLTextureFromSprite(sprite));
-
 			return sprite;
 		}
-	}
-
-	getWebGLTextureFromSprite(sprite: Sprite): GLTextureInfo | undefined {
-		const data = sprite.getData();
-
-		if (this._textures.has(data.aId)) {
-			const texture = this._textures.get(data.aId);
-			if (this.gl?.isTexture(texture?.texture as WebGLTexture)) {
-
-				return this._textures.get(data.aId);
-			}
-		}
-
-		if (this.gl === undefined) return undefined;
-		const gl = this.gl;
-		const atlasURL = sprite.getAtlasSource();
-		if (atlasURL === undefined) return;
-		const texture = gl.createTexture();
-		if (texture === null) return;
-		gl.bindTexture(gl.TEXTURE_2D, texture);
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]));
-
-		const img = new Image();
-		img.crossOrigin = "";
-		img.src = atlasURL;
-		img.onload = () => {
-			gl.bindTexture(gl.TEXTURE_2D, texture);
-			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA,  gl.RGBA, gl.UNSIGNED_BYTE, img);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-			const info = this._textures.get(data.aId) as GLTextureInfo;
-			info.size = {width: img.naturalWidth, height: img.naturalHeight}
-		}
-
-		const textureInfo = {
-			texture,
-			size: {width: 1, height: 1}
-		}
-
-		this._textures.set(data.aId, textureInfo);
-
-		return textureInfo;
-	}
-
-	purgeTextures() {
-		this._textures.clear();
 	}
 	
 	getAll(): Sprite[] {
