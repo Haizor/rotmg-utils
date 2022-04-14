@@ -4,7 +4,7 @@ import { XMLObject } from "./XMLObject";
 
 export class Wall extends XMLObject {
 	@Data("Top", TextureData)
-	top?: TextureProvider;
+	top?: TextureProvider = undefined;
 	@Data("ShadowSize", XMLNoDefault(1))
 	shadowSize: number = 1;
 	@Data("Static", XMLBoolean)

@@ -32,6 +32,7 @@ var Wall = /** @class */ (function (_super) {
     __extends(Wall, _super);
     function Wall() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.top = undefined;
         _this.shadowSize = 1;
         _this.static = false;
         _this.fullOccupy = false;
