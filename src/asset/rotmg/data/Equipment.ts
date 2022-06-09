@@ -2,6 +2,7 @@ import { DataController, Data, XMLBoolean, XMLEnum, XMLNoDefault } from "../../.
 import { Activate, ActivateData, Proc } from "./activate/Activate";
 import { Item } from "./Item";
 import { Stats, StatsData } from "./Stats";
+import { Subattack, SubattackData } from "./Subattack";
 import { XMLObject } from "./XMLObject";
 
 export type Tier = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | "UT" | "ST";
@@ -122,6 +123,9 @@ export class Equipment extends XMLObject {
 	numProjectiles: number = 1;
 	@Data("ActivateOnEquip", StatsData)
 	stats: Stats = new Stats();
+
+	@Data("Subattack", SubattackData)
+	subAttacks: Subattack[] = [];
 
 	@Data("Consumable", XMLBoolean)
 	consumable: boolean = false;

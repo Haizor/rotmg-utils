@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -47,6 +51,7 @@ __exportStar(require("./asset/rotmg/data/StatusEffectType"), exports);
 __exportStar(require("./asset/rotmg/data/Texture"), exports);
 __exportStar(require("./asset/rotmg/data/Wall"), exports);
 __exportStar(require("./asset/rotmg/data/XMLObject"), exports);
+__exportStar(require("./asset/rotmg/data/Subattack"), exports);
 __exportStar(require("./asset/rotmg/data/activate/Activate"), exports);
 __exportStar(require("./asset/rotmg/data/activate/ActivateParser"), exports);
 __exportStar(require("./asset/rotmg/data/activate/BoostRange"), exports);

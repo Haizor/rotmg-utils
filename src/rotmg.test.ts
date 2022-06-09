@@ -42,6 +42,14 @@ describe("Basic Weapon", () => {
 		expect(object.soulbound).toEqual(false);
 		expect(object.numProjectiles).toEqual(1);
 	})
+	test("Subattacks", () => {
+		const object = manager.get("rotmg", "Bow of Covert Havens").value as Equipment;
+		expect(object.subAttacks.length).toBeGreaterThan(0);
+		expect(object.subAttacks[0].numProjectiles).toBe(1);
+		expect(object.subAttacks[0].rateOfFire).toBe(1);
+		expect(object.subAttacks[1].projectileId).toBe(1);
+		expect(object.subAttacks[1].arcGap).toBe(14);
+	})
 })
 
 describe("Dyes & Textiles", () => {

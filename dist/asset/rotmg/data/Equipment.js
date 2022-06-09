@@ -29,6 +29,7 @@ var Serializable_1 = require("../../../asset/normal/Serializable");
 var Activate_1 = require("./activate/Activate");
 var Item_1 = require("./Item");
 var Stats_1 = require("./Stats");
+var Subattack_1 = require("./Subattack");
 var XMLObject_1 = require("./XMLObject");
 var SlotType;
 (function (SlotType) {
@@ -136,6 +137,7 @@ var Equipment = /** @class */ (function (_super) {
         _this.arcGap = 15;
         _this.numProjectiles = 1;
         _this.stats = new Stats_1.Stats();
+        _this.subAttacks = [];
         _this.consumable = false;
         _this.potion = false;
         _this.soulbound = false;
@@ -201,6 +203,10 @@ var Equipment = /** @class */ (function (_super) {
         (0, Serializable_1.Data)("ActivateOnEquip", Stats_1.StatsData),
         __metadata("design:type", Stats_1.Stats)
     ], Equipment.prototype, "stats", void 0);
+    __decorate([
+        (0, Serializable_1.Data)("Subattack", Subattack_1.SubattackData),
+        __metadata("design:type", Array)
+    ], Equipment.prototype, "subAttacks", void 0);
     __decorate([
         (0, Serializable_1.Data)("Consumable", Serializable_1.XMLBoolean),
         __metadata("design:type", Boolean)

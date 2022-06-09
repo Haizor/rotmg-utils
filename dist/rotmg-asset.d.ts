@@ -22,6 +22,7 @@ export * from "./asset/rotmg/data/StatusEffectType";
 export * from "./asset/rotmg/data/Texture";
 export * from "./asset/rotmg/data/Wall";
 export * from "./asset/rotmg/data/XMLObject";
+export * from "./asset/rotmg/data/Subattack";
 export * from "./asset/rotmg/data/activate/Activate";
 export * from "./asset/rotmg/data/activate/ActivateParser";
 export * from "./asset/rotmg/data/activate/BoostRange";

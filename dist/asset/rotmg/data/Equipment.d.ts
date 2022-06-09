@@ -2,6 +2,7 @@ import { DataController } from "../../../asset/normal/Serializable";
 import { Activate, Proc } from "./activate/Activate";
 import { Item } from "./Item";
 import { Stats } from "./Stats";
+import { Subattack } from "./Subattack";
 import { XMLObject } from "./XMLObject";
 export declare type Tier = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | "UT" | "ST";
 export declare enum SlotType {
@@ -60,6 +61,7 @@ export declare class Equipment extends XMLObject {
     arcGap: number;
     numProjectiles: number;
     stats: Stats;
+    subAttacks: Subattack[];
     consumable: boolean;
     potion: boolean;
     soulbound: boolean;
