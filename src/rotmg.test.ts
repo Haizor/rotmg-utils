@@ -1,5 +1,5 @@
 import { AssetManager } from "./asset"
-import { Dye, DyeAnimation, DyeAnimationType, Equipment, ObjectClass, RotMGAssetLoader, SlotType } from "./rotmg-asset"
+import { BasicTexture, BulletCreate, Dye, DyeAnimation, DyeAnimationType, Equipment, ObjectClass, Proc, RotMGAssetLoader, SlotType } from "./rotmg-asset"
 import fetch from 'node-fetch';
 
 //yes i am aware that this is a terrible practice. what else??? load the xml from local? create testing xmls??? stupid
@@ -33,22 +33,28 @@ beforeEach(() => {
 })
 
 	
-describe("Basic Weapon", () => {
+describe("Equipment", () => {
 	test("Universal Equipment Data", () => {
-		const object = manager.get("rotmg", "Short Sword").value as Equipment;
+		const object = manager.get("rotmg", "Short Sword")?.value as Equipment;
 		expect(object.class).toBe(ObjectClass.Equipment);
 		expect(object.getDisplayName()).toBe("Short Sword");
 		expect(object.slotType).toBe(SlotType.Sword);
-		expect(object.soulbound).toEqual(false);
+		expect(object.soulbound).toBe(false);
 		expect(object.numProjectiles).toEqual(1);
+		expect(object.subAttacks).toStrictEqual([])
 	})
 	test("Subattacks", () => {
-		const object = manager.get("rotmg", "Bow of Covert Havens").value as Equipment;
-		expect(object.subAttacks.length).toBeGreaterThan(0);
-		expect(object.subAttacks[0].numProjectiles).toBe(1);
-		expect(object.subAttacks[0].rateOfFire).toBe(1);
-		expect(object.subAttacks[1].projectileId).toBe(1);
-		expect(object.subAttacks[1].arcGap).toBe(14);
+		const object = manager.get("rotmg", "Bow of Covert Havens")?.value as Equipment;
+		expect(object.subAttacks.length).toBeGreaterThanOrEqual(0);
+		expect(object.subAttacks[0].numProjectiles).toEqual(1);
+		expect(object.subAttacks[0].rateOfFire).toEqual(1);
+		expect(object.subAttacks[1].projectileId).toEqual(1);
+		expect(object.subAttacks[1].arcGap).toEqual(14);
+	})
+	test("Proc Parsing", () => {
+		const object = manager.get("rotmg", "Primal Arcana")?.value as Equipment;
+		expect(object.onShootProcs.length).toEqual(2);
+		expect((object.onShootProcs[0] as (Proc & BulletCreate)).type).toBe(0x5625)
 	})
 })
 
@@ -56,13 +62,13 @@ describe("Dyes & Textiles", () => {
 
 	describe("Dye", () => {
 		test("Dye is a dye / not a textile", () => {
-			const object = manager.get("rotmg", "Alice Blue Clothing Dye").value as Dye;
+			const object = manager.get("rotmg", "Alice Blue Clothing Dye")?.value as Dye;
 			expect(object.isColor()).toBe(true);
 			expect(object.isTextile()).toBe(false);
 		})
 		test("Dye color is correct", () => {
-			const object = manager.get("rotmg", "Blue Clothing Dye").value as Dye;
-			const rgb = object.getRGB();
+			const object = manager.get("rotmg", "Blue Clothing Dye")?.value as Dye;
+			const rgb = object.getRGB() as [number, number, number];
 			expect(rgb[0]).toBe(0);
 			expect(rgb[1]).toBe(0);
 			expect(rgb[2]).toBe(255);
@@ -70,18 +76,18 @@ describe("Dyes & Textiles", () => {
 	})
 	describe("Textile", () => {
 		test("Textile is a textile / not a dye", () => {
-			const object = manager.get("rotmg", "Large Hypnotic Cloth").value as Dye;
+			const object = manager.get("rotmg", "Large Hypnotic Cloth")?.value as Dye;
 			expect(object.isTextile()).toBe(true);
 			expect(object.isColor()).toBe(false);
 		})
 		test("Textile texture is correct", () => {
-			const object = manager.get("rotmg", "Large Hypnotic Cloth").value as Dye;
-			const texture = object.getTextileTexture();
+			const object = manager.get("rotmg", "Large Hypnotic Cloth")?.value as Dye;
+			const texture = object.getTextileTexture() as BasicTexture;
 			expect(texture.file).toBe("textile4x4");
 			expect(texture.index).toBe(257);
 		})
 		test("Textile animation", () => {
-			const object = manager.get("rotmg", "Large Hypnotic Cloth").value as Dye;
+			const object = manager.get("rotmg", "Large Hypnotic Cloth")?.value as Dye;
 			expect(object.dyeAnimation).toBeDefined();
 			const dyeAnimation = object.dyeAnimation as DyeAnimation;
 			expect(dyeAnimation.pivotX).toBe(0);

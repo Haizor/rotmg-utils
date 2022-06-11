@@ -21,7 +21,7 @@ export class BulletCreate implements Activate {
 	@Data("@_arcGap")
 	arcGap: number = 0;
 	@Data("@_type")
-	type?: number
+	type?: number = undefined;
 
 	getName(): string {
 		return "BulletCreate";

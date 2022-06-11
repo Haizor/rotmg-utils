@@ -22,6 +22,7 @@ var BulletCreate = /** @class */ (function () {
         this.gapAngle = 45;
         this.gapTiles = 0.4;
         this.arcGap = 0;
+        this.type = undefined;
     }
     BulletCreate.prototype.getName = function () {
         return "BulletCreate";
