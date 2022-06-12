@@ -142,7 +142,7 @@ export class Equipment extends XMLObject {
 	@Data("OnPlayerShootActivate", ActivateData("OnPlayerShootActivate"), {isConstructed: true})
 	onShootProcs: Proc[] = [];
 	@Data("feedPower")
-	feedPower?: number;
+	feedPower?: number = undefined;
 	@Data("MultiPhase", XMLBoolean)
 	multiPhase: boolean = false;
 	
@@ -155,12 +155,12 @@ export class Equipment extends XMLObject {
 	@Data("Cooldown", XMLNoDefault(0.5))
 	cooldown: number = 0.5;
 	@Data("XPBonus")
-	xpBonus?: number;
+	xpBonus?: number = undefined;
 
 	@Data("DisplayId")
-	displayId?: string;
+	displayId?: string = undefined;
 	@Data("Description")
-	description?: string;
+	description?: string = undefined;
 	@Data("ExtraTooltipData", EffectInfoData)
 	extraTooltipData: EffectInfo[] = []
 

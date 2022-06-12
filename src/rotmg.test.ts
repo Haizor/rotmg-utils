@@ -39,9 +39,11 @@ describe("Equipment", () => {
 		expect(object.class).toBe(ObjectClass.Equipment);
 		expect(object.getDisplayName()).toBe("Short Sword");
 		expect(object.slotType).toBe(SlotType.Sword);
+		expect(object.description).toBe("A steel short sword.");
 		expect(object.soulbound).toBe(false);
 		expect(object.numProjectiles).toEqual(1);
-		expect(object.subAttacks).toStrictEqual([])
+		expect(object.subAttacks).toStrictEqual([]);
+		expect(object.feedPower).toBe(4);
 	})
 	test("Subattacks", () => {
 		const object = manager.get("rotmg", "Bow of Covert Havens")?.value as Equipment;

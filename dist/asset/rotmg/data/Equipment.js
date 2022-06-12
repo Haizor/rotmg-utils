@@ -145,9 +145,13 @@ var Equipment = /** @class */ (function (_super) {
         _this.abilityProcs = [];
         _this.onHitProcs = [];
         _this.onShootProcs = [];
+        _this.feedPower = undefined;
         _this.multiPhase = false;
         _this.mpCost = 0;
         _this.cooldown = 0.5;
+        _this.xpBonus = undefined;
+        _this.displayId = undefined;
+        _this.description = undefined;
         _this.extraTooltipData = [];
         return _this;
     }
