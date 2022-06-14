@@ -137,6 +137,9 @@ var Equipment = /** @class */ (function (_super) {
         _this.arcGap = 15;
         _this.numProjectiles = 1;
         _this.stats = new Stats_1.Stats();
+        _this.burstCount = undefined;
+        _this.burstDelay = undefined;
+        _this.burstMinDelay = undefined;
         _this.subAttacks = [];
         _this.consumable = false;
         _this.potion = false;
@@ -207,6 +210,18 @@ var Equipment = /** @class */ (function (_super) {
         (0, Serializable_1.Data)("ActivateOnEquip", Stats_1.StatsData),
         __metadata("design:type", Stats_1.Stats)
     ], Equipment.prototype, "stats", void 0);
+    __decorate([
+        (0, Serializable_1.Data)("BurstCount"),
+        __metadata("design:type", Number)
+    ], Equipment.prototype, "burstCount", void 0);
+    __decorate([
+        (0, Serializable_1.Data)("BurstDelay"),
+        __metadata("design:type", Number)
+    ], Equipment.prototype, "burstDelay", void 0);
+    __decorate([
+        (0, Serializable_1.Data)("BurstMinDelay"),
+        __metadata("design:type", Number)
+    ], Equipment.prototype, "burstMinDelay", void 0);
     __decorate([
         (0, Serializable_1.Data)("Subattack", Subattack_1.SubattackData),
         __metadata("design:type", Array)

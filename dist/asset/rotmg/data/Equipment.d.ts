@@ -61,6 +61,9 @@ export declare class Equipment extends XMLObject {
     arcGap: number;
     numProjectiles: number;
     stats: Stats;
+    burstCount?: number;
+    burstDelay?: number;
+    burstMinDelay?: number;
     subAttacks: Subattack[];
     consumable: boolean;
     potion: boolean;

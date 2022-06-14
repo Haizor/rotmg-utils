@@ -124,6 +124,13 @@ export class Equipment extends XMLObject {
 	@Data("ActivateOnEquip", StatsData)
 	stats: Stats = new Stats();
 
+	@Data("BurstCount")
+	burstCount?: number = undefined;
+	@Data("BurstDelay")
+	burstDelay?: number = undefined;
+	@Data("BurstMinDelay")
+	burstMinDelay?: number = undefined;
+
 	@Data("Subattack", SubattackData)
 	subAttacks: Subattack[] = [];
 

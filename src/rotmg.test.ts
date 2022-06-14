@@ -53,6 +53,12 @@ describe("Equipment", () => {
 		expect(object.subAttacks[1].projectileId).toEqual(1);
 		expect(object.subAttacks[1].arcGap).toEqual(14);
 	})
+	test("Burst", () => {
+		const object = manager.get("rotmg", "S.T.A.F.F.")?.value as Equipment;
+		expect(object.burstCount).toEqual(5);
+		expect(object.burstDelay).toBeCloseTo(1.8);
+		expect(object.burstMinDelay).toEqual(1)
+	})
 	test("Proc Parsing", () => {
 		const object = manager.get("rotmg", "Primal Arcana")?.value as Equipment;
 		expect(object.onShootProcs.length).toEqual(2);
