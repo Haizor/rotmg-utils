@@ -54,7 +54,7 @@ var EquipmentSet = /** @class */ (function () {
         var e_1, _a;
         var equipCount = 0;
         var _loop_1 = function (equip) {
-            if (this_1.setpieces.findIndex(function (piece) { return piece.type === equip.type; }) !== -1) {
+            if (equip !== undefined && this_1.setpieces.findIndex(function (piece) { return piece.type === equip.type; }) !== -1) {
                 equipCount++;
             }
         };
@@ -111,7 +111,7 @@ var EquipmentSet = /** @class */ (function () {
         try {
             for (var equipment_2 = __values(equipment), equipment_2_1 = equipment_2.next(); !equipment_2_1.done; equipment_2_1 = equipment_2.next()) {
                 var equip = equipment_2_1.value;
-                if (equip.set !== undefined && !processedTypes.includes(equip.set.type)) {
+                if (equip !== undefined && equip.set !== undefined && !processedTypes.includes(equip.set.type)) {
                     stats = stats.add(equip.set.getStats(equipment));
                     processedTypes.push(equip.set.type);
                 }

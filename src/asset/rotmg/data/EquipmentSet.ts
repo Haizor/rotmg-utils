@@ -28,7 +28,7 @@ export class EquipmentSet {
 	getStats(equipment: (Equipment | undefined)[]) {
 		let equipCount = 0;
 		for (let equip of equipment) {
-			if (this.setpieces.findIndex(piece => piece.type === equip.type) !== -1) {
+			if (equip !== undefined && this.setpieces.findIndex(piece => piece.type === equip.type) !== -1) {
 				equipCount++;
 			}
 		}
@@ -66,7 +66,7 @@ export class EquipmentSet {
 		let processedTypes = [];
 		let stats = new Stats();
 		for (const equip of equipment) {
-			if (equip.set !== undefined && !processedTypes.includes(equip.set.type)) {
+			if (equip !== undefined && equip.set !== undefined && !processedTypes.includes(equip.set.type)) {
 				stats = stats.add(equip.set.getStats(equipment));
 				processedTypes.push(equip.set.type);
 			}
