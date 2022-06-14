@@ -7,6 +7,7 @@
   "repository": "github:haizor/rotmg-utils",
   "scripts": {
     "build": "tsc",
+    "prepare": "tsc",
     "test": "jest"
   },
   "author": "Haizor",
