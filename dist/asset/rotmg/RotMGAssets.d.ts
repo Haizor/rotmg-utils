@@ -19,5 +19,6 @@ export declare class RotMGAssets implements AssetContainer<XMLObject> {
     getObjectFromId(id: string): XMLObject;
     getObjectFromType(type: number): XMLObject;
     parseFromXML(xml: any): XMLObject | undefined;
+    parseSet(xml: any): void;
     serialize(): any;
 }

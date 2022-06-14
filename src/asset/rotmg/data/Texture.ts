@@ -60,7 +60,6 @@ export class BasicTexture implements TextureProvider, Texture {
 					}
 				}));
 			} else {
-
 				return new RandomTexture([xml.RandomTexture.Texture])
 			}
 
@@ -90,6 +89,7 @@ export class BasicTexture implements TextureProvider, Texture {
 
 		
 		const texture = xml.Texture || xml.AnimatedTexture;
+		if (texture !== undefined)
 		return new BasicTexture(texture.File, texture.Index, xml.AnimatedTexture !== undefined);
 	}
 }

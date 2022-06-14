@@ -25,7 +25,9 @@ beforeEach(() => {
 				sources: [
 					"https://www.haizor.net/rotmg/assets/production/xml/equip.xml",
 					"https://www.haizor.net/rotmg/assets/production/xml/dyes.xml",
-					"https://www.haizor.net/rotmg/assets/production/xml/textiles.xml"
+					"https://www.haizor.net/rotmg/assets/production/xml/textiles.xml",
+
+					"https://www.haizor.net/rotmg/assets/production/xml/equipmentsets.xml"
 				]
 			}
 		]
@@ -44,6 +46,16 @@ describe("Equipment", () => {
 		expect(object.numProjectiles).toEqual(1);
 		expect(object.subAttacks).toStrictEqual([]);
 		expect(object.feedPower).toBe(4);
+	})
+	test("Equipment Set", () => {
+		const harp = manager.get("rotmg", "BardST0")?.value as Equipment;
+		const fanfare = manager.get("rotmg", "BardST1")?.value as Equipment;
+		const robe = manager.get("rotmg", "BardST2")?.value as Equipment;
+		const ring = manager.get("rotmg", "BardST3")?.value as Equipment;
+		expect(harp.set).toBeDefined();
+		expect(harp.set?.getStats([harp, fanfare]).dex).toEqual(3)
+		expect(harp.set?.getStats([harp, fanfare, robe]).dex).toEqual(6)
+		expect(harp.set?.getStats([harp, fanfare, robe, ring]).dex).toEqual(10)
 	})
 	test("Subattacks", () => {
 		const object = manager.get("rotmg", "Bow of Covert Havens")?.value as Equipment;

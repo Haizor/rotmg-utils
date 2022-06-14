@@ -12,6 +12,7 @@ export declare const XMLBoolean: {
     };
     deserialize: (input: any) => boolean;
 };
+export declare function XMLArray<T>(constructor: new () => T): DataController<T[]>;
 export declare function XMLEnum(e: any): {
     serialize: (input: any) => any;
     deserialize: (input: any) => any;

@@ -1,4 +1,5 @@
 import { Equipment } from "./data/Equipment";
+import { EquipmentSet } from "./data/EquipmentSet";
 import { ObjectClass } from "./data/ObjectClass";
 import { XMLObject } from "./data/XMLObject";
 import { Player } from "./data/Player";
@@ -124,6 +125,17 @@ export class RotMGAssets implements AssetContainer<XMLObject> {
 		this._objectMaps.get(obj.class)?.push(obj);
 
 		return obj;
+	}
+
+	parseSet(xml: any) {
+		const set = new EquipmentSet();
+		deserializeObject(set, xml);
+		
+		for (const piece of set.setpieces) {
+			const obj = this.getObjectFromType(piece.type);
+			if (!(obj instanceof Equipment)) continue;
+			obj.set = set;
+		}
 	}
 
 	serialize() {

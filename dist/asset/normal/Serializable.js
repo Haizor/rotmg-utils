@@ -22,7 +22,7 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deserializeObject = exports.serializeObject = exports.Data = exports.XMLHex = exports.XMLNoDefault = exports.XMLEnum = exports.XMLBoolean = exports.XMLValue = void 0;
+exports.deserializeObject = exports.serializeObject = exports.Data = exports.XMLHex = exports.XMLNoDefault = exports.XMLEnum = exports.XMLArray = exports.XMLBoolean = exports.XMLValue = void 0;
 require("reflect-metadata");
 exports.XMLValue = {
     serialize: function (input) { return input; },
@@ -32,6 +32,21 @@ exports.XMLBoolean = {
     serialize: function (input) { return input !== false ? { "#text": "" } : undefined; },
     deserialize: function (input) { return input !== undefined; }
 };
+function XMLArray(constructor) {
+    return {
+        serialize: function (input) {
+            return input.map((function (t) { return serializeObject(t); }));
+        },
+        deserialize: function (inputs) {
+            return inputs.map(function (input) {
+                var obj = new constructor();
+                deserializeObject(obj, input);
+                return obj;
+            });
+        }
+    };
+}
+exports.XMLArray = XMLArray;
 function XMLEnum(e) {
     return {
         serialize: function (input) { return e[input]; },

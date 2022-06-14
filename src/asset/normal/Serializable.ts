@@ -14,6 +14,21 @@ export const XMLBoolean = {
 	deserialize: (input: any) => input !== undefined
 }
 
+export function XMLArray<T>(constructor: new () => T): DataController<T[]> {
+	return {
+		serialize: (input: T[]) => {
+			return input.map((t => serializeObject(t)))
+		},
+		deserialize: (inputs: any[]) => {
+			return inputs.map((input) => {
+				const obj = new constructor();
+				deserializeObject(obj, input);
+				return obj;
+			})
+		}
+	}
+}
+
 export function XMLEnum(e: any) {
 	return {
 		serialize: (input: any) => e[input],

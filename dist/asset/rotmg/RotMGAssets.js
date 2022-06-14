@@ -1,7 +1,19 @@
 "use strict";
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RotMGAssets = void 0;
 var Equipment_1 = require("./data/Equipment");
+var EquipmentSet_1 = require("./data/EquipmentSet");
 var ObjectClass_1 = require("./data/ObjectClass");
 var XMLObject_1 = require("./data/XMLObject");
 var Player_1 = require("./data/Player");
@@ -102,6 +114,27 @@ var RotMGAssets = /** @class */ (function () {
         }
         (_a = this._objectMaps.get(obj.class)) === null || _a === void 0 ? void 0 : _a.push(obj);
         return obj;
+    };
+    RotMGAssets.prototype.parseSet = function (xml) {
+        var e_1, _a;
+        var set = new EquipmentSet_1.EquipmentSet();
+        (0, Serializable_1.deserializeObject)(set, xml);
+        try {
+            for (var _b = __values(set.setpieces), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var piece = _c.value;
+                var obj = this.getObjectFromType(piece.type);
+                if (!(obj instanceof Equipment_1.Equipment))
+                    continue;
+                obj.set = set;
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
     };
     RotMGAssets.prototype.serialize = function () {
         var obj = {

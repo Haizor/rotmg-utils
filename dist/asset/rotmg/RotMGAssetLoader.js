@@ -57,40 +57,55 @@ var RotMGAssetLoader = /** @class */ (function () {
     RotMGAssetLoader.prototype.load = function (sources, settings) {
         if (settings === void 0) { settings = { readOnly: false, type: "object" }; }
         return __awaiter(this, void 0, void 0, function () {
-            var assets, root, child;
+            var assets;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         assets = settings.type === "object" ? new RotMGAssets_1.RotMGAssets(settings.readOnly) : new RotMGGroundAssets_1.RotMGGroundAssets(settings.readOnly);
-                        root = settings.type === "object" ? "Objects" : "GroundTypes";
-                        child = settings.type === "object" ? "Object" : "Ground";
                         return [4 /*yield*/, Promise.all(sources.map(function (src) { return __awaiter(_this, void 0, void 0, function () {
-                                var parser, xml, _a, _b, obj;
-                                var e_1, _c;
-                                return __generator(this, function (_d) {
+                                var parser, xml, rootKey, childKey, _a, _b, obj, _c, _d, obj;
+                                var e_1, _e, e_2, _f;
+                                return __generator(this, function (_g) {
                                     parser = new fast_xml_parser_1.XMLParser({
                                         parseAttributeValue: true,
                                         ignoreAttributes: false
                                     });
                                     xml = parser.parse(src);
-                                    if (Array.isArray(xml[root][child])) {
+                                    rootKey = Object.keys(xml)[1];
+                                    childKey = Object.keys(xml[rootKey])[0];
+                                    if (rootKey === "EquipmentSets" && assets instanceof RotMGAssets_1.RotMGAssets) {
                                         try {
-                                            for (_a = __values(xml[root][child]), _b = _a.next(); !_b.done; _b = _a.next()) {
+                                            for (_a = __values(xml[rootKey][childKey]), _b = _a.next(); !_b.done; _b = _a.next()) {
                                                 obj = _b.value;
-                                                assets.parseFromXML(obj);
+                                                assets.parseSet(obj);
                                             }
                                         }
                                         catch (e_1_1) { e_1 = { error: e_1_1 }; }
                                         finally {
                                             try {
-                                                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                                                if (_b && !_b.done && (_e = _a.return)) _e.call(_a);
                                             }
                                             finally { if (e_1) throw e_1.error; }
                                         }
                                     }
+                                    else if (Array.isArray(xml[rootKey][childKey])) {
+                                        try {
+                                            for (_c = __values(xml[rootKey][childKey]), _d = _c.next(); !_d.done; _d = _c.next()) {
+                                                obj = _d.value;
+                                                assets.parseFromXML(obj);
+                                            }
+                                        }
+                                        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                                        finally {
+                                            try {
+                                                if (_d && !_d.done && (_f = _c.return)) _f.call(_c);
+                                            }
+                                            finally { if (e_2) throw e_2.error; }
+                                        }
+                                    }
                                     else {
-                                        assets.parseFromXML(xml[root][child]);
+                                        assets.parseFromXML(xml[rootKey][childKey]);
                                     }
                                     return [2 /*return*/];
                                 });

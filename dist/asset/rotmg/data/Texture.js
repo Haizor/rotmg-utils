@@ -92,7 +92,8 @@ var BasicTexture = /** @class */ (function () {
             }));
         }
         var texture = xml.Texture || xml.AnimatedTexture;
-        return new BasicTexture(texture.File, texture.Index, xml.AnimatedTexture !== undefined);
+        if (texture !== undefined)
+            return new BasicTexture(texture.File, texture.Index, xml.AnimatedTexture !== undefined);
     };
     return BasicTexture;
 }());

@@ -1,5 +1,6 @@
 import { DataController } from "../../../asset/normal/Serializable";
 import { Activate, Proc } from "./activate/Activate";
+import { EquipmentSet } from "./EquipmentSet";
 import { Item } from "./Item";
 import { Stats } from "./Stats";
 import { Subattack } from "./Subattack";
@@ -82,6 +83,7 @@ export declare class Equipment extends XMLObject {
     displayId?: string;
     description?: string;
     extraTooltipData: EffectInfo[];
+    set?: EquipmentSet;
     getDisplayName(): string;
     createInstance(): Item;
     isWeapon(): boolean;

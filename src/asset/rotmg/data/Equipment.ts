@@ -1,5 +1,6 @@
 import { DataController, Data, XMLBoolean, XMLEnum, XMLNoDefault } from "../../../asset/normal/Serializable";
 import { Activate, ActivateData, Proc } from "./activate/Activate";
+import { EquipmentSet } from "./EquipmentSet";
 import { Item } from "./Item";
 import { Stats, StatsData } from "./Stats";
 import { Subattack, SubattackData } from "./Subattack";
@@ -169,7 +170,9 @@ export class Equipment extends XMLObject {
 	@Data("Description")
 	description?: string = undefined;
 	@Data("ExtraTooltipData", EffectInfoData)
-	extraTooltipData: EffectInfo[] = []
+	extraTooltipData: EffectInfo[] = [];
+
+	set?: EquipmentSet;
 
 	getDisplayName(): string {
 		return this.displayId || this.id;
