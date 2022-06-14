@@ -135,6 +135,7 @@ export class RotMGAssets implements AssetContainer<XMLObject> {
 			const obj = this.getObjectFromType(piece.type);
 			if (!(obj instanceof Equipment)) continue;
 			obj.set = set;
+			obj.tier = "ST";
 		}
 	}
 

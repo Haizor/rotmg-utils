@@ -4,6 +4,7 @@
   "description": "Utilities for parsing and using data from Realm of the Mad God.",
   "main": "dist/index",
   "typings": "dist/index",
+  "repository": "github:haizor/rotmg-utils",
   "scripts": {
     "build": "tsc",
     "test": "jest"
@@ -23,5 +24,9 @@
     "node-fetch": "^2.6.7",
     "ts-jest": "^27.1.1",
     "typescript": "^4.7.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
