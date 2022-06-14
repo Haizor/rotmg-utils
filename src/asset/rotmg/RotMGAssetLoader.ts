@@ -14,7 +14,7 @@ export class RotMGAssetLoader implements AssetLoader<string, RotMGAssets | RotMG
 			
 			const xml = parser.parse(src);
 
-			const rootKey = Object.keys(xml)[1];
+			const rootKey = Object.keys(xml).find((str) => str !== "?xml");
 			const childKey = Object.keys(xml[rootKey])[0];
 
 			if (rootKey === "EquipmentSets" && assets instanceof RotMGAssets) {
