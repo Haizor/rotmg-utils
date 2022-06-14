@@ -157,9 +157,9 @@ export class Equipment extends XMLObject {
 	@Data("MpCost", XMLNoDefault(0))
 	mpCost: number = 0;
 	@Data("MpEndCost")
-	mpEndCost?: number;
+	mpEndCost?: number = undefined;
 	@Data("MpCostPerSecond")
-	mpCostPerSecond?: number;
+	mpCostPerSecond?: number = undefined;
 	@Data("Cooldown", XMLNoDefault(0.5))
 	cooldown: number = 0.5;
 	@Data("XPBonus")
