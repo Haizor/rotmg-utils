@@ -1,5 +1,5 @@
 import { AssetManager } from "./asset"
-import { BasicTexture, BulletCreate, Dye, DyeAnimation, DyeAnimationType, Equipment, ObjectClass, Proc, RotMGAssetLoader, SlotType } from "./rotmg-asset"
+import { BasicTexture, BulletCreate, Dye, DyeAnimation, DyeAnimationType, Equipment, EquipmentSet, ObjectClass, Proc, RotMGAssetLoader, SlotType } from "./rotmg-asset"
 import fetch from 'node-fetch';
 
 //yes i am aware that this is a terrible practice. what else??? load the xml from local? create testing xmls??? stupid
@@ -50,12 +50,17 @@ describe("Equipment", () => {
 	test("Equipment Set", () => {
 		const harp = manager.get("rotmg", "BardST0")?.value as Equipment;
 		const fanfare = manager.get("rotmg", "BardST1")?.value as Equipment;
-		const robe = manager.get("rotmg", "BardST2")?.value as Equipment;
-		const ring = manager.get("rotmg", "BardST3")?.value as Equipment;
+		const robe = manager.get("rotmg", "2BardST2")?.value as Equipment;
+		const ring = manager.get("rotmg", "2BardST3")?.value as Equipment;
+
 		expect(harp.set).toBeDefined();
 		expect(harp.set?.getStats([harp, fanfare]).dex).toEqual(3)
-		expect(harp.set?.getStats([harp, fanfare, robe]).dex).toEqual(6)
-		expect(harp.set?.getStats([harp, fanfare, robe, ring]).dex).toEqual(10)
+
+		const splitStats = EquipmentSet.getTotalStatsForSets([harp, fanfare, robe, ring]);
+
+		expect(splitStats.hp).toEqual(45);
+		expect(splitStats.dex).toEqual(6);
+
 	})
 	test("Subattacks", () => {
 		const object = manager.get("rotmg", "Bow of Covert Havens")?.value as Equipment;

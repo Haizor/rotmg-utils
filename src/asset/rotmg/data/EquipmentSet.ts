@@ -36,21 +36,21 @@ export class EquipmentSet {
 		let stats = new Stats();
 
 		if (equipCount > 1) {
-			stats = stats.add(this.statsFromActivates(this.activateOnEquip2));
+			stats = stats.add(EquipmentSet.statsFromActivates(this.activateOnEquip2));
 		}
 
 		if (equipCount > 2) {
-			stats = stats.add(this.statsFromActivates(this.activateOnEquip3));
+			stats = stats.add(EquipmentSet.statsFromActivates(this.activateOnEquip3));
 		}
 
 		if (equipCount > 3) {
-			stats = stats.add(this.statsFromActivates(this.activateOnEquipAll));
+			stats = stats.add(EquipmentSet.statsFromActivates(this.activateOnEquipAll));
 		}
 
 		return stats;
 	}
 
-	private statsFromActivates(activates: Activate[]) {
+	static statsFromActivates(activates: Activate[]) {
 		let stats = new Stats();
 
 		for (const activate of activates) {
@@ -59,6 +59,19 @@ export class EquipmentSet {
 			}
 		}
 		
+		return stats;
+	}
+
+	static getTotalStatsForSets(equipment: (Equipment | undefined)[]) {
+		let processedTypes = [];
+		let stats = new Stats();
+		for (const equip of equipment) {
+			if (equip.set !== undefined && !processedTypes.includes(equip.set.type)) {
+				stats = stats.add(equip.set.getStats(equipment));
+				processedTypes.push(equip.set.type);
+			}
+		}
+
 		return stats;
 	}
 }

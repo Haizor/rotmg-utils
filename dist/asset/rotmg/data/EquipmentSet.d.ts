@@ -13,5 +13,6 @@ export declare class EquipmentSet {
     activateOnEquip3: Activate[];
     activateOnEquipAll: Activate[];
     getStats(equipment: (Equipment | undefined)[]): Stats;
-    private statsFromActivates;
+    static statsFromActivates(activates: Activate[]): Stats;
+    static getTotalStatsForSets(equipment: (Equipment | undefined)[]): Stats;
 }

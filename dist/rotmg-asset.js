@@ -52,6 +52,7 @@ __exportStar(require("./asset/rotmg/data/Texture"), exports);
 __exportStar(require("./asset/rotmg/data/Wall"), exports);
 __exportStar(require("./asset/rotmg/data/XMLObject"), exports);
 __exportStar(require("./asset/rotmg/data/Subattack"), exports);
+__exportStar(require("./asset/rotmg/data/EquipmentSet"), exports);
 __exportStar(require("./asset/rotmg/data/activate/Activate"), exports);
 __exportStar(require("./asset/rotmg/data/activate/ActivateParser"), exports);
 __exportStar(require("./asset/rotmg/data/activate/BoostRange"), exports);

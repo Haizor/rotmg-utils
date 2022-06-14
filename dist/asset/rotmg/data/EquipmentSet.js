@@ -74,17 +74,17 @@ var EquipmentSet = /** @class */ (function () {
         }
         var stats = new Stats_1.Stats();
         if (equipCount > 1) {
-            stats = stats.add(this.statsFromActivates(this.activateOnEquip2));
+            stats = stats.add(EquipmentSet.statsFromActivates(this.activateOnEquip2));
         }
         if (equipCount > 2) {
-            stats = stats.add(this.statsFromActivates(this.activateOnEquip3));
+            stats = stats.add(EquipmentSet.statsFromActivates(this.activateOnEquip3));
         }
         if (equipCount > 3) {
-            stats = stats.add(this.statsFromActivates(this.activateOnEquipAll));
+            stats = stats.add(EquipmentSet.statsFromActivates(this.activateOnEquipAll));
         }
         return stats;
     };
-    EquipmentSet.prototype.statsFromActivates = function (activates) {
+    EquipmentSet.statsFromActivates = function (activates) {
         var e_2, _a;
         var stats = new Stats_1.Stats();
         try {
@@ -101,6 +101,28 @@ var EquipmentSet = /** @class */ (function () {
                 if (activates_1_1 && !activates_1_1.done && (_a = activates_1.return)) _a.call(activates_1);
             }
             finally { if (e_2) throw e_2.error; }
+        }
+        return stats;
+    };
+    EquipmentSet.getTotalStatsForSets = function (equipment) {
+        var e_3, _a;
+        var processedTypes = [];
+        var stats = new Stats_1.Stats();
+        try {
+            for (var equipment_2 = __values(equipment), equipment_2_1 = equipment_2.next(); !equipment_2_1.done; equipment_2_1 = equipment_2.next()) {
+                var equip = equipment_2_1.value;
+                if (equip.set !== undefined && !processedTypes.includes(equip.set.type)) {
+                    stats = stats.add(equip.set.getStats(equipment));
+                    processedTypes.push(equip.set.type);
+                }
+            }
+        }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (equipment_2_1 && !equipment_2_1.done && (_a = equipment_2.return)) _a.call(equipment_2);
+            }
+            finally { if (e_3) throw e_3.error; }
         }
         return stats;
     };
