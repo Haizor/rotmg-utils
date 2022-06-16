@@ -12,9 +12,9 @@ export class XMLObject implements Serializable {
 	id: string = "";
 	@Data("Class", XMLEnum(ObjectClass))
 	class: ObjectClass = ObjectClass.GameObject;
-	@Data("Texture", TextureData, { deserializeFullObject: true })
-	@Data("AnimatedTexture", TextureData, { deserializeFullObject: true })
-	@Data("RandomTexture", TextureData, { deserializeFullObject: true })
+	@Data("Texture", TextureData, { isConstructed: true })
+	@Data("AnimatedTexture", TextureData, { isConstructed: true })
+	@Data("RandomTexture", TextureData, { isConstructed: true })
 	texture?: TextureProvider = undefined;
 	@Data("Projectile", ProjectileData)
 	projectiles: Projectile[] = [];
