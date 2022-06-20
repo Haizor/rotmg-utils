@@ -29,6 +29,7 @@ export * from "./asset/rotmg/data/EquipmentSet"
 
 export * from "./asset/rotmg/data/activate/Activate";
 export * from "./asset/rotmg/data/activate/ActivateParser";
+export * from "./asset/rotmg/data/activate/AbilityUseDiscount"
 export * from "./asset/rotmg/data/activate/BoostRange";
 export * from "./asset/rotmg/data/activate/BulletCreate";
 export * from "./asset/rotmg/data/activate/BulletNova";

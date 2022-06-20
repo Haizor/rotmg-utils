@@ -124,7 +124,8 @@ export class Equipment extends XMLObject {
 	numProjectiles: number = 1;
 	@Data("ActivateOnEquip", StatsData)
 	stats: Stats = new Stats();
-
+	@Data("ActivateOnEquip", ActivateData("ActivateOnEquip"), { isConstructed: true })
+	activateOnEquips: Activate[] = [];
 	@Data("BurstCount")
 	burstCount?: number = undefined;
 	@Data("BurstDelay")

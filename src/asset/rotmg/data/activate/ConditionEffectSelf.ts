@@ -6,7 +6,7 @@ import { XMLActivate } from "./ActivateParser";
 @XMLActivate()
 export class ConditionEffectSelf implements Activate {
 	@Data("@_effect", StatusEffectTypeData)
-	effect: StatusEffectType = StatusEffectType.Healing;
+	effect: StatusEffectType = StatusEffectType.Nothing;
 	@Data("@_duration")
 	duration: number = 0;
 	@Data("@_wisMin")

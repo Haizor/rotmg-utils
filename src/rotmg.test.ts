@@ -1,6 +1,7 @@
 import { AssetManager } from "./asset"
-import { BasicTexture, BulletCreate, Dye, DyeAnimation, DyeAnimationType, Equipment, EquipmentSet, ObjectClass, Proc, RotMGAssetLoader, SlotType } from "./rotmg-asset"
+import { AbilityUseDiscount, BasicTexture, BulletCreate, ConditionEffectSelf, Dye, DyeAnimation, DyeAnimationType, Equipment, EquipmentSet, ObjectClass, Proc, RotMGAssetLoader, SlotType } from "./rotmg-asset"
 import fetch from 'node-fetch';
+import { Lightning } from "./asset/rotmg/data/activate/Lightning";
 
 //yes i am aware that this is a terrible practice. what else??? load the xml from local? create testing xmls??? stupid
 globalThis.fetch = fetch;
@@ -46,6 +47,17 @@ describe("Equipment", () => {
 		expect(object.numProjectiles).toEqual(1);
 		expect(object.subAttacks).toStrictEqual([]);
 		expect(object.feedPower).toBe(4);
+	})
+	test("Lightning", () => {
+		const scepter = manager.get("rotmg", "Scepter of Storms")?.value as Equipment;
+		const lightning = scepter.activates.find((a => a instanceof Lightning)) as Lightning;
+		expect(lightning.getDamage(67)).toBeCloseTo(436);
+		expect(lightning.getTargetCount(67)).toBeCloseTo(6)
+
+	})
+	test("Ability Use Discount", () => {
+		const gemstone = manager.get("rotmg", "The Twilight Gemstone")?.value as Equipment;
+		expect(gemstone.activateOnEquips.findIndex(a => a instanceof AbilityUseDiscount && a.multiplier === 0.7))
 	})
 	test("Equipment Set", () => {
 		const harp = manager.get("rotmg", "BardST0")?.value as Equipment;
