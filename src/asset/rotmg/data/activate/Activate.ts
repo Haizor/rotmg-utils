@@ -58,5 +58,6 @@ export interface Proc {
 	hpMinThreshold?: number;
 	requiredConditions: StatusEffectType;
 	mustNotWear?: number;
+	mustWear?: number;
 	getName(): string
 }
