@@ -16,11 +16,11 @@ function Proc(Base: AbilityConstructor) {
 	return class Proc extends Base {
 		cooldown: number = 0;
 		proc: number = 1;
-		hpRequired?: number;
-		hpMinThreshold?: number;
+		hpRequired?: number = undefined;
+		hpMinThreshold?: number = undefined;
 		requiredConditions: StatusEffectType = StatusEffectType.Nothing
-		mustNotWear?: number;
-		mustWear?: number;
+		mustNotWear?: number = undefined;
+		mustWear?: number = undefined;
 
 		constructor() {
 			super()
