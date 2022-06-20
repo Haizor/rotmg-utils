@@ -20,6 +20,7 @@ function Proc(Base: AbilityConstructor) {
 		hpMinThreshold?: number;
 		requiredConditions: StatusEffectType = StatusEffectType.Nothing
 		mustNotWear?: number;
+		mustWear?: number;
 
 		constructor() {
 			super()
@@ -29,6 +30,7 @@ function Proc(Base: AbilityConstructor) {
 			Data("@_hpMinThreshold")(this, "hpMinThreshold")
 			Data("@_requiredConditions", StatusEffectTypeData)(this, "requiredConditions")
 			Data("@_mustNotWear")(this, "mustNotWear")
+			Data("@_mustWear")(this, "mustWear")
 		}
 	}
 }
