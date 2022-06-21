@@ -21,11 +21,19 @@ export class Lightning implements Activate {
 	condEffect?: StatusEffectType;
 
 	getDamage(wis: number = 50): number {
-		return this.totalDamage + Math.max(Math.floor((wis - this.wisMin) * (this.wisDamageBase / 10)), 0)
+		return this.totalDamage + this.getBonusDamage(wis);
 	}
 
 	getTargetCount(wis: number = 50): number {
-		return this.maxTargets + Math.max(Math.floor((wis - this.wisMin) / this.wisPerTarget) , 0)
+		return this.maxTargets + this.getBonusTargetCount(wis);
+	}
+
+	getBonusDamage(wis: number = 50): number {
+		return Math.max(Math.floor((wis - this.wisMin) * (this.wisDamageBase / 10)), 0)
+	}
+
+	getBonusTargetCount(wis: number = 50) {
+		return Math.max(Math.floor((wis - this.wisMin) / this.wisPerTarget), 0);
 	}
 
 	getName(): string {
