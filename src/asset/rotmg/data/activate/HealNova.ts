@@ -16,6 +16,10 @@ export class HealNova implements Activate {
 	wisHealBase: number = 30;
 	@Data("@_splitHealing", XMLBoolean)
 	splitHealing: boolean = true;
+	@Data("@_damage")
+	damage?: number = undefined;
+	@Data("@_color")
+	color: number = 0xFFFFFF;
 
 	getHealAmount(wis: number) {
 		if (wis < this.wisMin) {
