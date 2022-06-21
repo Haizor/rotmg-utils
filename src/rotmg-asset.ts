@@ -44,6 +44,7 @@ export * from "./asset/rotmg/data/activate/Magic";
 export * from "./asset/rotmg/data/activate/ObjectToss";
 export * from "./asset/rotmg/data/activate/PoisonGrenade";
 export * from "./asset/rotmg/data/activate/Shoot";
+export * from "./asset/rotmg/data/activate/Lightning";
 export * from "./asset/rotmg/data/activate/ShurikenAbility";
 export * from "./asset/rotmg/data/activate/StatBoostAura";
 export * from "./asset/rotmg/data/activate/StatBoostSelf";
