@@ -7,8 +7,8 @@ export class RotMGSpritesheetLoader implements AssetLoader<string, Spritesheet> 
 		this.gl = gl;
 	}
 
-	async load(sources: string[]): Promise<Spritesheet> {
-		const manager = new Spritesheet();
+	async load(sources: string[], settings: any): Promise<Spritesheet> {
+		const manager = new Spritesheet(undefined, settings);
 		for (const src of sources) {
 			await manager.load(src);
 		}

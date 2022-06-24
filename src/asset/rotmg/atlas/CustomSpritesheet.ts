@@ -5,7 +5,7 @@ export class CustomSprite extends Sprite {
 	blob: string;
 
 	constructor(data: SpriteData, blob: string) {
-		super(data);
+		super(data, {});
 		this.blob = blob;
 	}
 

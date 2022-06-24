@@ -1,10 +1,20 @@
 import { AssetContainer, Metadata } from "asset/normal/AssetContainer";
 import { BasicTexture, Texture } from "../data/Texture";
 
-export enum Atlases {
-	"https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png" = 1,
-	"https://www.haizor.net/rotmg/assets/production/atlases/characters.png" = 2,
-	"https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png" = 4
+// export enum Atlases {
+// 	"https://www.haizor.net/rotmg/assets/production/atlases/groundTiles.png" = 1,
+// 	"https://www.haizor.net/rotmg/assets/production/atlases/characters.png" = 2,
+// 	"https://www.haizor.net/rotmg/assets/production/atlases/mapObjects.png" = 4
+// }
+
+const DefaultAtlases = {
+	1: "groundTiles.png",
+	2: "characters.png",
+	4: "mapObjects.png"
+}
+
+export type Atlases = {
+	[key: number]: string
 }
 
 export type SpritePosition = {
@@ -63,9 +73,11 @@ export enum Action {
 export class Sprite {
 	private _data: SpriteData;
 	private _animatedData?: AnimatedSpriteData;
+	private _atlases: Atlases;
 
-	constructor(data: SpriteData, animatedData?: AnimatedSpriteData) {
+	constructor(data: SpriteData, atlases: Atlases, animatedData?: AnimatedSpriteData) {
 		this._data = data;
+		this._atlases = atlases;
 		this._animatedData = animatedData;
 	}
 
@@ -78,7 +90,7 @@ export class Sprite {
 	}
 
 	getAtlasSource(): string | undefined {
-		return Atlases[this._data.aId];
+		return this._atlases[this._data.aId];
 	}
 
 	asTexture() {
@@ -105,9 +117,14 @@ export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 
 	gl?: WebGLRenderingContext;
 	metadata?: Metadata;
+	atlases: Atlases = {};
 
-	constructor(gl?: WebGLRenderingContext) {
+	constructor(gl?: WebGLRenderingContext, settings?: any) {
 		this.gl = gl;
+		const root = settings?.atlasRoot ?? "https://www.haizor.net/rotmg/assets/production/atlases/";
+		for (const [key, value] of Object.entries(DefaultAtlases)) {
+			this.atlases[key] = root + value;
+		}
 	}
 
 	async load(src: string) {
@@ -145,7 +162,7 @@ export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 				if (data.length === 0) return [];
 
 				return data.map((data) => {
-					const sprite = new Sprite(data.spriteData, data);
+					const sprite = new Sprite(data.spriteData, this.atlases, data);
 					return sprite;
 				})
 			}
@@ -155,14 +172,14 @@ export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 				if (data.length === 0) return [];
 
 				return data.map((data) => {
-					const sprite = new Sprite(data.spriteData, data);
+					const sprite = new Sprite(data.spriteData, this.atlases, data);
 					return sprite;
 				})
 			} else {
 				const data = this._animatedSprites.find((data) => data.index === index && data.spriteSheetName === spriteSheetName && data.action === action && data.direction === direction);
 				if (data === undefined) return;
 	
-				const sprite = new Sprite(data.spriteData, data);
+				const sprite = new Sprite(data.spriteData, this.atlases, data);
 				return sprite;
 			}
 		} else {
@@ -170,7 +187,7 @@ export class Spritesheet implements AssetContainer<Sprite | Sprite[]> {
 			const data = atlas?.elements.find((data) => data.index === index);
 			if (data === undefined) return;
 
-			const sprite = new Sprite(data);
+			const sprite = new Sprite(data, this.atlases);
 			return sprite;
 		}
 	}
