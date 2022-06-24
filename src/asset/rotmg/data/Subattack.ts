@@ -11,7 +11,7 @@ export class Subattack {
 	rateOfFire: number = 1;
 	@Data("BurstCount")
 	burstCount?: number = undefined;
-	@Data("BurtDelay")
+	@Data("BurstDelay")
 	burstDelay?: number = undefined;
 	@Data("BurstMinDelay")
 	burstMinDelay?: number = undefined;
