@@ -6,7 +6,7 @@ export interface Serializable {
 
 export const XMLValue = {
 	serialize: (input: any) => input,
-	deserialize: (input: any) => input
+	deserialize: (input: any) => Array.isArray(input) ? input[0] : input
 }
 
 export const XMLBoolean = {
