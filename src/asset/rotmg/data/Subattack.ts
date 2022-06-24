@@ -9,6 +9,14 @@ export class Subattack {
 	arcGap: number = 15;
 	@Data("RateOfFire")
 	rateOfFire: number = 1;
+	@Data("BurstCount")
+	burstCount?: number = undefined;
+	@Data("BurtDelay")
+	burstDelay?: number = undefined;
+	@Data("BurstMinDelay")
+	burstMinDelay?: number = undefined;
+	@Data("DefaultAngle")
+	defaultAngle?: number = undefined;
 }
 
 export const SubattackData: DataController<Subattack[]> = {
