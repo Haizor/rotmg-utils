@@ -53,7 +53,6 @@ describe("Equipment", () => {
 		const lightning = scepter.activates.find((a => a instanceof Lightning)) as Lightning;
 		expect(lightning.getDamage(67)).toBeCloseTo(436);
 		expect(lightning.getTargetCount(67)).toBeCloseTo(6)
-
 	})
 	test("Ability Use Discount", () => {
 		const gemstone = manager.get("rotmg", "The Twilight Gemstone")?.value as Equipment;

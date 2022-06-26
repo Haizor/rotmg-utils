@@ -116,11 +116,11 @@ export class Equipment extends XMLObject {
 	tier: Tier = 0;
 	@Data("BagType", XMLEnum(BagType))
 	bagType: BagType = BagType.BrownBag;
-	@Data("RateOfFire", XMLNoDefault(1))
+	@Data("RateOfFire")
 	rateOfFire: number = 1;
-	@Data("ArcGap", XMLNoDefault(15))
+	@Data("ArcGap")
 	arcGap: number = 15;
-	@Data("NumProjectiles", XMLNoDefault(1))
+	@Data("NumProjectiles")
 	numProjectiles: number = 1;
 	@Data("ActivateOnEquip", StatsData)
 	stats: Stats = new Stats();
@@ -155,13 +155,13 @@ export class Equipment extends XMLObject {
 	@Data("MultiPhase", XMLBoolean)
 	multiPhase: boolean = false;
 	
-	@Data("MpCost", XMLNoDefault(0))
+	@Data("MpCost")
 	mpCost: number = 0;
 	@Data("MpEndCost")
 	mpEndCost?: number = undefined;
 	@Data("MpCostPerSecond")
 	mpCostPerSecond?: number = undefined;
-	@Data("Cooldown", XMLNoDefault(0.5))
+	@Data("Cooldown")
 	cooldown: number = 0.5;
 	@Data("XPBonus")
 	xpBonus?: number = undefined;
