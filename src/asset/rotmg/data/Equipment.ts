@@ -116,16 +116,16 @@ export class Equipment extends XMLObject {
 	tier: Tier = 0;
 	@Data("BagType", XMLEnum(BagType))
 	bagType: BagType = BagType.BrownBag;
-	@Data("RateOfFire")
+	@Data("RateOfFire", XMLNoDefault(1))
 	rateOfFire: number = 1;
-	@Data("ArcGap")
+	@Data("ArcGap", XMLNoDefault(15))
 	arcGap: number = 15;
-	@Data("NumProjectiles")
+	@Data("NumProjectiles", XMLNoDefault(1))
 	numProjectiles: number = 1;
-	@Data("ActivateOnEquip", StatsData)
-	stats: Stats = new Stats();
 	@Data("ActivateOnEquip", ActivateData("ActivateOnEquip"), { isConstructed: true })
 	activateOnEquips: Activate[] = [];
+	@Data("ActivateOnEquip", StatsData)
+	stats: Stats = new Stats();
 	@Data("BurstCount")
 	burstCount?: number = undefined;
 	@Data("BurstDelay")

@@ -106,19 +106,17 @@ export class Stats {
 				"#text": "IncrementStat"
 			} : undefined
 		}
-		
-		return {
-			ActivateOnEquip: [
-				mapToObject("MAXHP", this.hp),
-				mapToObject("MAXMP", this.mp),
-				mapToObject("ATT", this.atk),
-				mapToObject("DEF", this.def),
-				mapToObject("SPD", this.spd),
-				mapToObject("DEX", this.dex),
-				mapToObject("VIT", this.vit),
-				mapToObject("WIS", this.wis)
-			]
-		}
+
+		return [
+			mapToObject("MAXHP", this.hp),
+			mapToObject("MAXMP", this.mp),
+			mapToObject("ATT", this.atk),
+			mapToObject("DEF", this.def),
+			mapToObject("SPD", this.spd),
+			mapToObject("DEX", this.dex),
+			mapToObject("VIT", this.vit),
+			mapToObject("WIS", this.wis)
+		].filter((a) => a !== undefined)
 	}
 
 	static min(statsA: Stats, statsB: Stats): Stats {

@@ -148,7 +148,8 @@ export class RotMGAssets implements AssetContainer<XMLObject> {
 		
 		const parser = new XMLBuilder({
 			attributeNamePrefix: "@_",
-			textNodeName: "",
+			textNodeName: "#text",
+			suppressEmptyNode: true,
 			ignoreAttributes: false,
 		});
 

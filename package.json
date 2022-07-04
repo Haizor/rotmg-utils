@@ -1,12 +1,13 @@
 {
   "name": "@haizor/rotmg-utils",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Utilities for parsing and using data from Realm of the Mad God.",
   "main": "dist/index",
   "typings": "dist/index",
   "repository": "github:haizor/rotmg-utils",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc -w",
     "prepare": "tsc",
     "test": "jest"
   },
